@@ -1460,6 +1460,25 @@ static void processEventVert(Router *router, NodeSet& scanline,
                                 Point(maxShape, lineY));
                     line->vertInfs.insert(vI2);
                 }
+
+                if ((minLimitMax <= minShape) && (maxLimitMin >= maxShape)) {
+                    // child shape inside of parent shape: create line from left to right of parent
+                    // These vertices represent the shape corners.
+                    VertInf *vI1 = new VertInf(router, dummyOrthogShapeID,
+                                               Point(minShape, lineY));
+                    VertInf *vI2 = new VertInf(router, dummyOrthogShapeID,
+                                               Point(maxShape, lineY));
+
+                    // segment 1: from parent left to child left
+                    segments.insert(LineSegment(minLimitMax, minShape, lineY,
+                                                true, nullptr, vI1));
+                    // segment 2: from child left to child right
+                    segments.insert(LineSegment(minShape, maxShape, lineY,
+                                                true, vI1, vI2));
+                    // segment 3: from child right to parent right
+                    segments.insert(LineSegment(maxShape, maxLimitMin, lineY,
+                                                true, vI2, nullptr));
+                }
             }
         }
         else if (e->type == ConnPoint)
@@ -1637,6 +1656,20 @@ static void processEventHori(Router *router, NodeSet& scanline,
                     // Shape corner:
                     VertInf *vI2 = new VertInf(router, dummyOrthogShapeID,
                                 Point(lineX, maxShape));
+                    line->vertInfs.insert(vI2);
+                }
+
+                if ((minLimitMax <= minShape) && (maxLimitMin >= maxShape)) {
+                    // child shape inside of parent shape: create line from top to bottom of parent
+                    LineSegment *line = segments.insert(
+                            LineSegment(minLimitMax, maxLimitMin, lineX));
+
+                    // Shape corners:
+                    VertInf *vI1 = new VertInf(router, dummyOrthogShapeID,
+                                               Point(lineX, minShape));
+                    VertInf *vI2 = new VertInf(router, dummyOrthogShapeID,
+                                               Point(lineX, maxShape));
+                    line->vertInfs.insert(vI1);
                     line->vertInfs.insert(vI2);
                 }
             }
@@ -1869,6 +1902,7 @@ extern void generateStaticOrthogonalVisGraph(Router *router)
     }
 
     segments.list().sort();
+    // DEBUG HELPER: here you can check horizontal lines, see `segments` variable
 
     // Set up the events for the horizontal sweep.
     SegmentListWrapper vertSegments;
@@ -1938,6 +1972,7 @@ extern void generateStaticOrthogonalVisGraph(Router *router)
             {
                 for (unsigned j = posStartIndex; j < posFinishIndex; ++j)
                 {
+                    // DEBUG HELPER: create vertical lines
                     processEventHori(router, scanline, vertSegments,
                             events[j], pass);
                 }
