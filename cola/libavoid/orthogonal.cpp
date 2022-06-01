@@ -1386,15 +1386,19 @@ static void processEventVert(Router *router, NodeSet& scanline,
         if (it != scanline.begin())
         {
             Node *u = *(--it);
-            v->firstAbove = u;
-            u->firstBelow = v;
+            if (!(v->v && v->min[0] >= u->min[0] && v->min[1] >= u->min[1] && v->max[0] <= u->max[0] && v->max[1] <= u->max[1])) {
+                v->firstAbove = u;
+                u->firstBelow = v;
+            }
         }
         it = v->iter;
         if (++it != scanline.end())
         {
             Node *u = *it;
-            v->firstBelow = u;
-            u->firstAbove = v;
+            if (!(v->v && v->min[0] >= u->min[0] && v->min[1] >= u->min[1] && v->max[0] <= u->max[0] && v->max[1] <= u->max[1])) {
+                v->firstBelow = u;
+                u->firstAbove = v;
+            }
         }
     }
 
@@ -1441,7 +1445,6 @@ static void processEventVert(Router *router, NodeSet& scanline,
             else
             {
                 // There are overlapping shapes along this shape edge.
-
                 if ((minLimitMax > minLimit) && (minLimitMax >= minShape))
                 {
                     LineSegment *line = segments.insert(
@@ -1459,25 +1462,6 @@ static void processEventVert(Router *router, NodeSet& scanline,
                     VertInf *vI2 = new VertInf(router, dummyOrthogShapeID,
                                 Point(maxShape, lineY));
                     line->vertInfs.insert(vI2);
-                }
-
-                if ((minLimitMax <= minShape) && (maxLimitMin >= maxShape)) {
-                    // child shape inside of parent shape: create line from left to right of parent
-                    // These vertices represent the shape corners.
-                    VertInf *vI1 = new VertInf(router, dummyOrthogShapeID,
-                                               Point(minShape, lineY));
-                    VertInf *vI2 = new VertInf(router, dummyOrthogShapeID,
-                                               Point(maxShape, lineY));
-
-                    // segment 1: from parent left to child left
-                    segments.insert(LineSegment(minLimitMax, minShape, lineY,
-                                                true, nullptr, vI1));
-                    // segment 2: from child left to child right
-                    segments.insert(LineSegment(minShape, maxShape, lineY,
-                                                true, vI1, vI2));
-                    // segment 3: from child right to parent right
-                    segments.insert(LineSegment(maxShape, maxLimitMin, lineY,
-                                                true, vI2, nullptr));
                 }
             }
         }
@@ -1601,8 +1585,10 @@ static void processEventHori(Router *router, NodeSet& scanline,
         if (++it != scanline.end())
         {
             Node *u = *it;
-            v->firstBelow = u;
-            u->firstAbove = v;
+            if (!(v->v && v->min[0] >= u->min[0] && v->min[1] >= u->min[1] && v->max[0] <= u->max[0] && v->max[1] <= u->max[1])) {
+                v->firstBelow = u;
+                u->firstAbove = v;
+            }
         }
     }
 
@@ -1620,6 +1606,7 @@ static void processEventHori(Router *router, NodeSet& scanline,
             // As far as we can see.
             double minLimit, maxLimit;
             double minLimitMax, maxLimitMin;
+
             v->findFirstPointAboveAndBelow(YDIM, lineX, minLimit, maxLimit,
                     minLimitMax, maxLimitMin);
 
@@ -1656,20 +1643,6 @@ static void processEventHori(Router *router, NodeSet& scanline,
                     // Shape corner:
                     VertInf *vI2 = new VertInf(router, dummyOrthogShapeID,
                                 Point(lineX, maxShape));
-                    line->vertInfs.insert(vI2);
-                }
-
-                if ((minLimitMax <= minShape) && (maxLimitMin >= maxShape)) {
-                    // child shape inside of parent shape: create line from top to bottom of parent
-                    LineSegment *line = segments.insert(
-                            LineSegment(minLimitMax, maxLimitMin, lineX));
-
-                    // Shape corners:
-                    VertInf *vI1 = new VertInf(router, dummyOrthogShapeID,
-                                               Point(lineX, minShape));
-                    VertInf *vI2 = new VertInf(router, dummyOrthogShapeID,
-                                               Point(lineX, maxShape));
-                    line->vertInfs.insert(vI1);
                     line->vertInfs.insert(vI2);
                 }
             }
