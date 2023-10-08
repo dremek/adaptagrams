@@ -33,11 +33,11 @@
 using namespace dialect;
 
 int main(void) {
-    Graph_SP graph = buildGraphFromTglfFile("graphs/" "sbgn/calvin.tglf");
+    Graph_SP graph = buildGraphFromTglfFile("graphs/" "special/Arpanet19728_input.tglf");
     HolaOpts opts;
     bool debug = false;
-    if (debug) doHOLA(*graph, opts, new Logger("output/", "holasbgn02_", true, true));
+    if (debug) doHOLA(*graph, opts, new Logger("output/", "hola_arpa_", true, true));
     else doHOLA(*graph, opts);
-    writeStringToFile(graph->writeTglf(), "output/" "holasbgn02_" "layout.tglf");
-    writeStringToFile(graph->writeSvg(), "output/" "svg/" "holasbgn02_" "layout.svg");
+    writeStringToFile(graph->writeTglf(), "output/" "hola_arpa_" "layout.tglf");
+    writeStringToFile(graph->writeSvg(), "output/" "svg/" "hola_arpa_" "layout.svg");
 }
