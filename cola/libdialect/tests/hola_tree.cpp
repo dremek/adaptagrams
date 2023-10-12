@@ -33,11 +33,13 @@
 using namespace dialect;
 
 int main(void) {
-    Graph_SP graph = buildGraphFromTglfFile("graphs/" "sbgn/calvin.tglf");
+    Graph_SP graph = buildGraphFromTglfFile("graphs/" "trees/tree02.tglf");
     HolaOpts opts;
+    //opts.routingAbs_nudgingDistance = 10;
+    std::string prefix = "hola_tree02_";
     bool debug = false;
-    if (debug) doHOLA(*graph, opts, new Logger("output/", "holasbgn02_", true, true));
+    if (debug) doHOLA(*graph, opts, new Logger("output/", prefix, true, true));
     else doHOLA(*graph, opts);
-    writeStringToFile(graph->writeTglf(), "output/" "holasbgn02_" "layout.tglf");
-    writeStringToFile(graph->writeSvg(), "output/" "svg/" "holasbgn02_" "layout.svg");
+    writeStringToFile(graph->writeTglf(), "output/" + prefix + "layout.tglf");
+    writeStringToFile(graph->writeSvg(), "output/" "svg/" + prefix + "layout.svg");
 }
