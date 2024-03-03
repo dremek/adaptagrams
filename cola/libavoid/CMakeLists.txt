@@ -166,6 +166,7 @@ if (ENABLE_TESTS)
     set(NEW_TEST_CASES
         connectorChanges
         moveShapeConnectionPins
+        mixedConnTypes
     )
     foreach(TEST_CASE IN LISTS NEW_TEST_CASES)
         set(TARGET_NAME "")

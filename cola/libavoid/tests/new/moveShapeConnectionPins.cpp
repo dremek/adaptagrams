@@ -81,7 +81,7 @@ TEST_F(MoveShapeConnectionPins, RoutesAreUpdatedAfterMovingShapeAndShapeConnecti
     rightShapeWithPin.second->updatePosition(newPosition);
     router->processTransaction();
 
-    router->outputDiagramSVG(IMAGE_OUTPUT_PATH "output/RoutesAreUpdatedAfterMovingShapeAndShapeConnectionPins");
+    router->outputDiagramSVG(IMAGE_OUTPUT_PATH "output/MoveShapeConnectionPins_RoutesAreUpdatedAfterMovingShapeAndShapeConnectionPins");
 
     std::vector<Point> expectedleftToRight = { {192, 200}, { 192, 400}, {700, 400} };
     std::vector<Point> expectedRightToLeft = { {700, 384}, {208, 384}, {208, 200} };
