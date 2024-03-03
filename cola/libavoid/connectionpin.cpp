@@ -74,23 +74,19 @@ ShapeConnectionPin::ShapeConnectionPin(ShapeRef *shape,
 }
 
 
-void ShapeConnectionPin::commonInitForShapeConnection(void)
-{
-    COLA_ASSERT(m_shape != nullptr);
-    COLA_ASSERT(m_class_id > 0);
-
+void ShapeConnectionPin::validateOffsets() {
     if (m_using_proportional_offsets)
     {
         // Parameter checking
         if ((m_x_offset < 0) || (m_x_offset > 1))
         {
             err_printf("xPortionOffset value (%g) in ShapeConnectionPin "
-                    "constructor not between 0 and 1.\n", m_x_offset);
+                       "constructor not between 0 and 1.\n", m_x_offset);
         }
         if ((m_y_offset < 0) || (m_y_offset > 1))
         {
             err_printf("yPortionOffset value (%g) in ShapeConnectionPin "
-                    "constructor not between 0 and 1.\n", m_y_offset);
+                       "constructor not between 0 and 1.\n", m_y_offset);
         }
     }
     else
@@ -100,16 +96,24 @@ void ShapeConnectionPin::commonInitForShapeConnection(void)
         if (m_x_offset > shapeBox.width())
         {
             err_printf("xOffset value (%g) in ShapeConnectionPin constructor "
-                    "greater than shape width (%g).\n", m_x_offset, 
-                    shapeBox.width());
+                       "greater than shape width (%g).\n", m_x_offset,
+                       shapeBox.width());
         }
         if (m_y_offset > shapeBox.height())
         {
             err_printf("yOffset value (%g) in ShapeConnectionPin constructor "
-                    "greater than shape height (%g).\n", m_y_offset,
-                    shapeBox.height());
+                       "greater than shape height (%g).\n", m_y_offset,
+                       shapeBox.height());
         }
     }
+}
+
+void ShapeConnectionPin::commonInitForShapeConnection(void)
+{
+    COLA_ASSERT(m_shape != nullptr);
+    COLA_ASSERT(m_class_id > 0);
+
+    validateOffsets();
 
     m_router = m_shape->router();
     m_shape->addConnectionPin(this);
@@ -232,11 +236,20 @@ bool ShapeConnectionPin::isExclusive(void) const
 
 void ShapeConnectionPin::updatePosition(const Point& newPosition)
 {
+    m_x_offset = newPosition.x;
+    m_y_offset = newPosition.y;
+    validateOffsets();
+    m_vertex->Reset(this->position());
+    m_router->modifyConnectionPin(this);
+}
+
+void ShapeConnectionPin::setPosition(const Point& newPosition)
+{
     m_vertex->Reset(newPosition);
 }
 
 
-void ShapeConnectionPin::updatePosition(const Polygon& newPoly)
+void ShapeConnectionPin::setPosition(const Polygon& newPoly)
 {
     m_vertex->Reset(position(newPoly));
 }

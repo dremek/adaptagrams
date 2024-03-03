@@ -126,7 +126,7 @@ void Obstacle::setNewPoly(const Polygon& poly)
             m_connection_pins.begin(); curr != m_connection_pins.end(); ++curr)
     {
         ShapeConnectionPin *pin = *curr;
-        pin->updatePosition(m_polygon);
+        pin->setPosition(m_polygon);
     }
 }
 
