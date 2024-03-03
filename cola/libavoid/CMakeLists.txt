@@ -167,6 +167,7 @@ if (ENABLE_TESTS)
         connectorChanges
         moveShapeConnectionPins
         mixedConnTypes
+        orthogonal/hierarchical
     )
     foreach(TEST_CASE IN LISTS NEW_TEST_CASES)
         set(TARGET_NAME "")
