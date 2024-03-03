@@ -50,9 +50,15 @@ jobs:
           ./autogen.sh
           popd
 
+      - name: Set up Python 3.11.6
+        if: runner.os == 'Linux'
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11.6
+
       - name: Build bindings(webassembly)
         if: runner.os == 'Linux'
         run: |
           pushd cola/bindings/webassembly/libavoid-js/
           npm install
-          python3 ./tools/generate.py
+          python3.11 ./tools/generate.py
