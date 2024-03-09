@@ -9,7 +9,7 @@
 <g inkscape:groupmode="layer" inkscape:label="DisplayConnectors">
 <path id="disp-8" d="M 300 600 L 700 600 " style="fill: none; stroke: black; stroke-width: 1px;" />
 <path id="disp-7" d="M 300 407 L 700 407 " style="fill: none; stroke: black; stroke-width: 1px;" />
-<path id="disp-6" d="M 800 314 L 808 314 L 808 700 L 700 700 " style="fill: none; stroke: black; stroke-width: 1px;" />
-<path id="disp-5" d="M 800 614 L 804 614 L 804 400 L 700 400 " style="fill: none; stroke: black; stroke-width: 1px;" />
+<path id="disp-6" d="M 800 314 L 804 314 L 804 700 L 700 700 " style="fill: none; stroke: black; stroke-width: 1px;" />
+<path id="disp-5" d="M 600 614 L 596 614 L 596 400 L 700 400 " style="fill: none; stroke: black; stroke-width: 1px;" />
 </g>
 </svg>
