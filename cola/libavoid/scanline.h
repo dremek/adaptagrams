@@ -101,6 +101,7 @@ class Node
     double firstPointAbove(size_t dim);
     double firstPointBelow(size_t dim);
     bool isInsideShape(size_t dimension);
+    bool isShapeInShape(Node *another);
 };
 
 
