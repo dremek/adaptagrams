@@ -40,13 +40,11 @@ bool CmpNodePos::operator() (const Node* u, const Node* v) const
     {
         return u->pos < v->pos;
     }
-    
-    // Use the pointers to the base objects to differentiate them.
-    void *up = (u->v) ? (void *) u->v : 
-            ((u->c) ? (void *) u->c : (void *) u->ss);
-    void *vp = (v->v) ? (void *) v->v : 
-            ((v->c) ? (void *) v->c : (void *) v->ss);
-    return up < vp;
+
+    // use unique ids of base objects to differentiate nodes
+    unsigned int uId = u->v ? u->v->getUniqueId() : ((u->c) ? u->c->uniqueId : u->ss->uniqueId);
+    unsigned int vId = v->v ? v->v->getUniqueId() : (v->c ? v->c->uniqueId : v->ss->uniqueId);
+    return uId < vId;
 }
 
 

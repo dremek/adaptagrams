@@ -1568,8 +1568,8 @@ static void processEventHori(Router *router, NodeSet& scanline,
         if (it != scanline.begin())
         {
             Node *u = *(--it);
-                v->firstAbove = u;
-                u->firstBelow = v;
+            v->firstAbove = u;
+            u->firstBelow = v;
         }
         it = v->iter;
         if (++it != scanline.end())

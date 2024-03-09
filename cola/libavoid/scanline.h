@@ -30,6 +30,7 @@
 #include <list>
 
 #include "libavoid/geomtypes.h"
+#include "uniqueid.h"
 
 
 namespace Avoid {
@@ -45,7 +46,7 @@ class ShiftSegment
 { 
     public:
         ShiftSegment(const size_t dim)
-            : dimension(dim)
+            : dimension(dim), uniqueId(getNewUniqueId())
         {
         }
         virtual ~ShiftSegment()
@@ -62,6 +63,7 @@ class ShiftSegment
         size_t dimension;
         double minSpaceLimit;
         double maxSpaceLimit;
+        const unsigned int uniqueId;
 };
 typedef std::list<ShiftSegment *> ShiftSegmentList;
 

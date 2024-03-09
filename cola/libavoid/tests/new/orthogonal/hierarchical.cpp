@@ -42,7 +42,7 @@ protected:
             new ShapeConnectionPin(childShape, connectionId2, 200, 56, false, 0, ConnDirRight);
         }
         new ShapeConnectionPin(childShape, CONNECTIONPIN_CENTRE,
-                               ATTACH_POS_CENTRE, ATTACH_POS_CENTRE, true, 0.0, ConnDirNone);
+                               ATTACH_POS_CENTRE, ATTACH_POS_CENTRE, true, 0.0, ConnDirAll);
         return childShape;
     }
 
@@ -106,13 +106,13 @@ TEST_F(HierarchicalOrthogonalRouter, TwoChildrenVerticallyAllWithPins) {
     router->processTransaction();
     router->outputDiagramSVG(IMAGE_OUTPUT_PATH "output/HierarchicalOrthogonalRouter_TwoChildrenVerticallyAllWithPins");
 
-    std::vector<Point> expectedBottomToTop = { {850, 514}, {854, 514}, {854, 350}, {850, 350} };
+    std::vector<Point> expectedBottomToTop = { {650, 514}, {646, 514}, {646, 350}, {650, 350} };
     EXPECT_THAT(bottomToTopConn, IsEqualToRoute(expectedBottomToTop));
-    std::vector<Point> expectedBottomToTop2 = { {650, 556}, {646, 556}, {646, 350}, {650, 350} };
+    std::vector<Point> expectedBottomToTop2 = { {850, 556}, {854, 556}, {854, 350}, {850, 350} };
     EXPECT_THAT(bottomToTopConn2, IsEqualToRoute(expectedBottomToTop2));
-    std::vector<Point> expectedTopToBottom = { {850, 214}, {858, 214}, {858, 650}, {850, 650} };
+    std::vector<Point> expectedTopToBottom = { {650, 214}, {642, 214}, {642, 650}, {650, 650} };
     EXPECT_THAT(topToBottomConn, IsEqualToRoute(expectedTopToBottom));
-    std::vector<Point> expectedTopToBottom2 = { {650, 256}, {642, 256}, {642, 650}, {650, 650} };
+    std::vector<Point> expectedTopToBottom2 = { {850, 256}, {858, 256}, {858, 650}, {850, 650} };
     EXPECT_THAT(topToBottomConn2, IsEqualToRoute(expectedTopToBottom2));
 }
 
@@ -130,9 +130,9 @@ TEST_F(HierarchicalOrthogonalRouter, ThreeChildrenVertically) {
     router->processTransaction();
     router->outputDiagramSVG(IMAGE_OUTPUT_PATH "output/HierarchicalOrthogonalRouter_ThreeChildrenVertically");
 
-    std::vector<Point> expectedBottomToTop = { {800, 614}, {804, 614}, {804, 400}, {700, 400} };
+    std::vector<Point> expectedBottomToTop = { {600, 614}, {596, 614}, {596, 400}, {700, 400} };
     EXPECT_THAT(bottomToTopConn, IsEqualToRoute(expectedBottomToTop));
-    std::vector<Point> expectedTopToBottom = { {800, 314}, {808, 314}, {808, 700}, {700, 700} };
+    std::vector<Point> expectedTopToBottom = { {800, 314}, {804, 314}, {804, 700}, {700, 700} };
     EXPECT_THAT(topToBottomConn, IsEqualToRoute(expectedTopToBottom));
     std::vector<Point> expectedLeftToTop = { {300, 407}, {700, 407} };
     EXPECT_THAT(leftToTopConn, IsEqualToRoute(expectedLeftToTop));
