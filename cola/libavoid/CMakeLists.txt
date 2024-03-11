@@ -32,6 +32,7 @@ add_library(${PROJECT_NAME}
     viscluster.cpp
     visibility.cpp
     vpsc.cpp
+    uniqueid.cpp
 )
 
 if (LIBAVOID_DEBUG)

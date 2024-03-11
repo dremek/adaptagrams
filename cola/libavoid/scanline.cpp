@@ -40,13 +40,9 @@ bool CmpNodePos::operator() (const Node* u, const Node* v) const
     {
         return u->pos < v->pos;
     }
-    
-    // Use the pointers to the base objects to differentiate them.
-    void *up = (u->v) ? (void *) u->v : 
-            ((u->c) ? (void *) u->c : (void *) u->ss);
-    void *vp = (v->v) ? (void *) v->v : 
-            ((v->c) ? (void *) v->c : (void *) v->ss);
-    return up < vp;
+
+    // use unique ids of base objects to differentiate nodes
+    return u->uniqueId() < v->uniqueId();
 }
 
 
@@ -298,6 +294,11 @@ bool Node::isShapeInShape(Node *another)
             && max[1] <= another->max[1]);
 }
 
+unsigned int Node::uniqueId(void) const
+{
+    return v ? v->uniqueId() : (c ? c->uniqueId : ss->uniqueId);
+}
+
 
 Event::Event(EventType t, Node *v, double p) 
     : type(t),
@@ -321,7 +322,7 @@ int compare_events(const void *a, const void *b)
         return ea->type - eb->type;
     }
     COLA_ASSERT(ea->v != eb->v);
-    return (int)(ea->v - eb->v);
+    return (ea->v->uniqueId() - eb->v->uniqueId());
 }
 
 
