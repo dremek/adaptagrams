@@ -84,9 +84,9 @@ TEST_F(HierarchicalOrthogonalRouter, TwoChildrenVertically) {
     router->processTransaction();
     router->outputDiagramSVG(IMAGE_OUTPUT_PATH "output/HierarchicalOrthogonalRouter_TwoChildrenVertically");
 
-    std::vector<Point> expectedBottomToTop = { {800, 714}, {804, 714}, {804, 600}, {700, 600} };
+    std::vector<Point> expectedBottomToTop = { {600, 714}, {596, 714}, {596, 600}, {700, 600} };
     EXPECT_THAT(bottomToTopConn, IsEqualToRoute(expectedBottomToTop));
-    std::vector<Point> expectedTopToBottom = { {600, 514}, {596, 514}, {596, 800}, {700, 800} };
+    std::vector<Point> expectedTopToBottom = { {600, 514}, {592, 514}, {592, 800}, {700, 800} };
     EXPECT_THAT(topToBottomConn, IsEqualToRoute(expectedTopToBottom));
 }
 
@@ -106,13 +106,13 @@ TEST_F(HierarchicalOrthogonalRouter, TwoChildrenVerticallyAllWithPins) {
     router->processTransaction();
     router->outputDiagramSVG(IMAGE_OUTPUT_PATH "output/HierarchicalOrthogonalRouter_TwoChildrenVerticallyAllWithPins");
 
-    std::vector<Point> expectedBottomToTop = { {650, 514}, {646, 514}, {646, 350}, {650, 350} };
+    std::vector<Point> expectedBottomToTop = { {850, 514}, {854, 514}, {854, 350}, {850, 350} };
     EXPECT_THAT(bottomToTopConn, IsEqualToRoute(expectedBottomToTop));
-    std::vector<Point> expectedBottomToTop2 = { {850, 556}, {854, 556}, {854, 350}, {850, 350} };
+    std::vector<Point> expectedBottomToTop2 = { {650, 556}, {646, 556}, {646, 350}, {650, 350} };
     EXPECT_THAT(bottomToTopConn2, IsEqualToRoute(expectedBottomToTop2));
-    std::vector<Point> expectedTopToBottom = { {650, 214}, {642, 214}, {642, 650}, {650, 650} };
+    std::vector<Point> expectedTopToBottom = { {850, 214}, {858, 214}, {858, 650}, {850, 650} };
     EXPECT_THAT(topToBottomConn, IsEqualToRoute(expectedTopToBottom));
-    std::vector<Point> expectedTopToBottom2 = { {850, 256}, {858, 256}, {858, 650}, {850, 650} };
+    std::vector<Point> expectedTopToBottom2 = { {650, 256}, {642, 256}, {642, 650}, {650, 650} };
     EXPECT_THAT(topToBottomConn2, IsEqualToRoute(expectedTopToBottom2));
 }
 
@@ -132,7 +132,7 @@ TEST_F(HierarchicalOrthogonalRouter, ThreeChildrenVertically) {
 
     std::vector<Point> expectedBottomToTop = { {600, 614}, {596, 614}, {596, 400}, {700, 400} };
     EXPECT_THAT(bottomToTopConn, IsEqualToRoute(expectedBottomToTop));
-    std::vector<Point> expectedTopToBottom = { {800, 314}, {804, 314}, {804, 700}, {700, 700} };
+    std::vector<Point> expectedTopToBottom = { {600, 314}, {592, 314}, {592, 700}, {700, 700} };
     EXPECT_THAT(topToBottomConn, IsEqualToRoute(expectedTopToBottom));
     std::vector<Point> expectedLeftToTop = { {300, 407}, {700, 407} };
     EXPECT_THAT(leftToTopConn, IsEqualToRoute(expectedLeftToTop));

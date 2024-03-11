@@ -241,6 +241,7 @@ class AVOID_EXPORT ShapeConnectionPin
         //! @return  A boolean denoting whether this pin is exclusive.
         //!
         bool isExclusive(void) const;
+        unsigned int uniqueId(void) const;
 
         void updatePosition(const Point& newPosition);
 
@@ -264,6 +265,7 @@ class AVOID_EXPORT ShapeConnectionPin
         void outputCode(FILE *fp) const;
         unsigned int containingObjectId(void) const;
 
+
         // Unique properties
         Router *m_router;
         ShapeRef *m_shape;
@@ -273,6 +275,7 @@ class AVOID_EXPORT ShapeConnectionPin
         double m_y_offset;
         double m_inside_offset;
         ConnDirFlags m_visibility_directions;
+        unsigned int m_unique_id;
         
         // Some extra properties.
         bool m_exclusive;
@@ -292,7 +295,7 @@ class CmpConnPinPtr
         bool operator()(const ShapeConnectionPin *lhs, 
                 const ShapeConnectionPin *rhs) const 
         {
-            return (*lhs) < (*rhs);
+            return lhs->uniqueId() < rhs->uniqueId();
         }
 };
 
