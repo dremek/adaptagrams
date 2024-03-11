@@ -265,7 +265,6 @@ class AVOID_EXPORT ShapeConnectionPin
         void outputCode(FILE *fp) const;
         unsigned int containingObjectId(void) const;
 
-
         // Unique properties
         Router *m_router;
         ShapeRef *m_shape;
