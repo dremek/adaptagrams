@@ -104,7 +104,7 @@ class Node
     double firstPointBelow(size_t dim);
     bool isInsideShape(size_t dimension);
     bool isShapeInShape(Node *another);
-    unsigned int getUniqueId(void) const;
+    unsigned int uniqueId(void) const;
 };
 
 

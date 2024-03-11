@@ -352,7 +352,7 @@ ConnRefList Obstacle::attachedConnectors(void) const
     return attachedConns;
 }
 
-unsigned int Obstacle::getUniqueId(void) const
+unsigned int Obstacle::uniqueId(void) const
 {
     return m_unique_id;
 }

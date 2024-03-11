@@ -91,7 +91,7 @@ class Obstacle
         //! @brief   Returns the position of this obstacle.
         //! @returns A point representing the position of this obstacle.
         virtual Point position(void) const = 0;
-        unsigned int getUniqueId(void) const;
+        unsigned int uniqueId(void) const;
         
         void setNewPoly(const Polygon& poly);
         VertInf *firstVert(void);
