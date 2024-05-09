@@ -182,7 +182,7 @@ class AVOID_EXPORT ConnEnd
         //! @param[in]  junctionRef           A pointer to the containing
         //!                                   junction's junctionRef.
         //!
-        static ConnEnd createConnEndFromJunctionRef(JunctionRef *junctionRef);
+        static ConnEnd* createConnEndFromJunctionRef(JunctionRef *junctionRef);
 
 
         //! @brief Returns the kind of connection this ConnEnd represents.
